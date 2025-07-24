@@ -28,7 +28,17 @@ app.get( "/api/hello", function ( req, res ) {
 app.get( '/api/:date?', ( req, res ) => {
   let dateParam = req.params.date;
   // If no date is provided, use current date
-  let date = dateParam ? ( !isNaN( dateParam ) ? new Date( Number( dateParam ) ) : new Date( dateParam ) ) : new Date();
+  // let date = dateParam ? ( !isNaN( dateParam ) ? new Date( Number( dateParam ) ) : new Date( dateParam ) ) : new Date();
+  // No param? Use current time
+  if ( !dateParam ) {
+    date = new Date();
+  } else if ( !isNaN( dateParam ) ) {
+    // Handle timestamp like 1451001600000
+    date = new Date( parseInt( dateParam ) );
+  } else {
+    // Try parse as date string
+    date = new Date( dateParam );
+  }
   if ( date.toString() === 'Invalid Date' ) {
     return res.json( { error: 'Invalid Date' } );
   }
