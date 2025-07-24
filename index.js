@@ -25,7 +25,7 @@ app.get( "/api/hello", function ( req, res ) {
 } );
 
 // timestamp API endpoint
-app.get( 'api/:date?', ( res, req ) => {
+app.get( '/api/:date?', ( req, res ) => {
   let dateParam = req.params.date;
   // If no date is provided, use current date
   let date = dateParam ? ( !isNaN( dateParam ) ? new Date( Number( dateParam ) ) : new Date( dateParam ) ) : new Date();
